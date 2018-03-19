@@ -34,8 +34,8 @@ class Shape{
   
   
   void display(){
-    inc += .1;
-    stroke(map(sin(inc),-1,1,0,255),30);
+    inc += .009;
+    stroke(map(sin(inc),-1,1,0,255));
     for(int i = 0; i < vertices.size(); i++){
       //this draws lines between all the vertices, 
       //and at the end draws a line back to the first in the list
@@ -59,7 +59,7 @@ class Shape{
       }
   }
   
-  void shrink(PVector o){
+  void shrink(PVector o,float shrinkAmount){
      PVector velocity;
      for(int i = 0; i < vertices.size(); i++){
        PVector origin = o.copy();
@@ -70,7 +70,7 @@ class Shape{
        //then reduce the velocity by multiplying it by some small number
        //and then i will change each of the vertices by subtracting the 'velocity'
        velocity = temp.sub(origin);
-       velocity.setMag(velocity.mag()*.0005);
+       velocity.setMag(velocity.mag()*shrinkAmount);
        vertices.get(i).sub(velocity);
        
        //i was previously getting the midpoint by averaging the two x and y positions

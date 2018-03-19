@@ -19,10 +19,14 @@ class TreeManager{
     square2 = flipFlop(iS);
     
     PTree pTree;
-    pTree = new PTree(square.vertices,square2.vertices);
+    pTree = new PTree(square2.vertices,square.vertices);
     treeArray.add(pTree);
   }
   
+  
+  void addPTree(PTree p){
+    treeArray.add(p);
+  }
   
   Shape flipFlop(Shape s){
     
@@ -40,7 +44,7 @@ class TreeManager{
     count++;
     if(count % 20 == 0){
       ArrayList<PVector> s = new ArrayList<PVector>();
-      for(int i = 0;i < treeArray.get(treeArray.size()-1).square.vertices.size();i++){
+      for(int i = 0;i < treeArray.get(0).square.vertices.size();i++){
         s.add(treeArray.get(treeArray.size()-1).square.vertices.get(i).copy());
       }
       treeArray.add(new PTree(new Shape(s).vertices,flipFlop(new Shape(s)).vertices));
@@ -53,9 +57,12 @@ class TreeManager{
       } else {
        treeArray.get(i).rotateL();
       }
-       treeArray.get(i).shrinkL();
-       treeArray.get(i).display();
+      treeArray.get(i).shrinkL();
+      treeArray.get(i).display();
+      if(treeArray.get(i).isTooSmall()){
+         treeArray.remove(i);
+      }  
     }
-  }
   
+  }
 }

@@ -41,22 +41,42 @@ class PTree{
     square2 = new Shape(shapeArray2);
   }
   
+  //i use this to check if we should continue processing this particular PTree
+  //i check the magnitude of the vector resulting from subtracting the top two vertices
+  //from each other. i had to use the PVector copy() method or else i would actually
+  //move the vector if i simply used '
+  boolean isTooSmall(){
+    if(square.vertices.get(0).copy().sub(square.vertices.get(1)).mag() < 3){
+       return true; 
+    } else {
+      return false;
+    }
+  }
+  
+  ArrayList<Shape> returnShapes(){
+     ArrayList<Shape> shapes = new ArrayList<Shape>();
+     shapes.add(square);
+     shapes.add(square2);
+     return shapes;
+  }
   
   void rS(){
       square.rotateAndScale(.001,.001,.9991,.9991);
   }
     
+    //rotate from the first vertex
     void rotateL(){
        for(int i = 0; i < square.getVertices().size();i++){
-         square.rotateFromPoint(square.vertices.get(0),.001);
-         square2.rotateFromPoint(square.vertices.get(0),-.001);
+         square.rotateFromPoint(square.vertices.get(0),-.008);
+         square2.rotateFromPoint(square2.vertices.get(0),.008);
        }
     }
     
+    //shrink from the first vertex
     void shrinkL(){
        for(int i = 1; i < square.getVertices().size();i++){
-         square.shrink(square.getVertices().get(0));
-         square2.shrink(square.getVertices().get(0));
+         square.shrink(square.getVertices().get(0),.0008);
+         square2.shrink(square2.getVertices().get(0),.0008);
        }
     }
   
