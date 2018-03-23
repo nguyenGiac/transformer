@@ -21,7 +21,7 @@
 //the magnitude by half, i multiply it by a very small number like .0009
 
 class Shape{
-  float inc;
+  float inc, inc2, inc3, inc4;
   ArrayList<PVector> vertices;
   
   Shape(ArrayList<PVector> v){
@@ -34,9 +34,17 @@ class Shape{
   
   
   void display(){
-    inc += .009;
-    stroke(map(sin(inc),-1,1,0,255));
-    for(int i = 0; i < vertices.size(); i++){
+    inc += .001111;
+    inc2 += .0092425;
+    inc3 += .003612;
+    inc4 += .06;
+    float size = map(sin(inc4),-1,1,0,10);
+    noFill();
+    stroke(map(sin(inc),-1,1,0,255),
+           map(sin(inc2),-1,1,0,255),
+           map(cos(inc3),-1,1,0,255),
+           10);
+    /*for(int i = 0; i < vertices.size(); i++){
       //this draws lines between all the vertices, 
       //and at the end draws a line back to the first in the list
        if(i == vertices.size()-1){
@@ -44,7 +52,16 @@ class Shape{
        } else {
          line(vertices.get(i).x,vertices.get(i).y,vertices.get(i+1).x,vertices.get(i+1).y);
        }
-    }
+    }*/
+    fill(map(sin(inc),-1,1,0,255),
+           map(sin(inc2),-1,1,0,255),
+           map(sin(inc3),-1,1,0,255),
+           10);
+    ellipse(vertices.get(0).x,vertices.get(0).y,size,size);
+    ellipse(vertices.get(1).x,vertices.get(1).y,size,size);
+    ellipse(vertices.get(2).x,vertices.get(2).y,size,size);
+    ellipse(vertices.get(3).x,vertices.get(3).y,size,size);
+    
   }
   
   void rotateAndScale(float p, float q,float r,float s){
@@ -59,7 +76,7 @@ class Shape{
       }
   }
   
-  void shrink(PVector o,float shrinkAmount){
+  void scaler(PVector o,float shrinkAmount){
      PVector velocity;
      for(int i = 0; i < vertices.size(); i++){
        PVector origin = o.copy();
@@ -93,7 +110,23 @@ class Shape{
     }
   }
   
+  void moveUpAndDown(float yAmt){
+    for(int i = 0; i < vertices.size(); i++){
+       vertices.get(i).y += yAmt;
+    }
+  }
+  
+  void moveSideToSide(float xAmt){
+    for(int i = 0; i < vertices.size(); i++){
+       vertices.get(i).x += xAmt;
+    }
+  }
+  
   ArrayList<PVector> getVertices(){
-    return vertices;
+    ArrayList<PVector> newArrayList = new ArrayList<PVector>();
+    for(int i = 0;i < vertices.size();i++){
+      newArrayList.add(vertices.get(i).copy());
+    }
+    return newArrayList;
   }
 }

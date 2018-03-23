@@ -26,19 +26,38 @@
 //i'm getting so close but I have to wrap things and be sure that I explain what I have learned this quarter!
 
 class PTree{
-  Shape square,square2;
-  float angle,incr;
+  Shape square,square2,square3,square4;
+  float angle,incr,scaleAmt,rotateAmt;
   ArrayList<PVector> sA;
   
-  PTree(ArrayList<PVector> s,ArrayList<PVector> s2){
+  PTree(ArrayList<PVector> s,
+        ArrayList<PVector> s2,
+        ArrayList<PVector> s3,
+        ArrayList<PVector> s4,
+        float rA,
+        float sA){
     ArrayList<PVector> shapeArray1 = new ArrayList<PVector>();
     ArrayList<PVector> shapeArray2 = new ArrayList<PVector>();
+    ArrayList<PVector> shapeArray3 = new ArrayList<PVector>();
+    ArrayList<PVector> shapeArray4 = new ArrayList<PVector>();
     for(int i = 0; i < s.size();i++){
       shapeArray1.add(s.get(i).copy());
+    }
+    for(int i = 0; i < s2.size();i++){
       shapeArray2.add(s2.get(i).copy());
+    }
+    for(int i = 0; i < s3.size();i++){
+      shapeArray3.add(s3.get(i).copy());
+    }
+    for(int i = 0; i < s4.size();i++){
+      shapeArray4.add(s4.get(i).copy());
     }
     square = new Shape(shapeArray1);
     square2 = new Shape(shapeArray2);
+    square3 = new Shape(shapeArray3);
+    square4 = new Shape(shapeArray4);
+    scaleAmt = sA;
+    rotateAmt = rA;
   }
   
   //i use this to check if we should continue processing this particular PTree
@@ -46,7 +65,15 @@ class PTree{
   //from each other. i had to use the PVector copy() method or else i would actually
   //move the vector if i simply used '
   boolean isTooSmall(){
-    if(square.vertices.get(0).copy().sub(square.vertices.get(1)).mag() < 3){
+    if(square.vertices.get(0).copy().sub(square.vertices.get(1)).mag() < 1){
+       return true; 
+    } else {
+      return false;
+    }
+  }
+  
+   boolean isTooBig(){
+    if(square.vertices.get(0).copy().sub(square.vertices.get(1)).mag() > width){
        return true; 
     } else {
       return false;
@@ -57,6 +84,8 @@ class PTree{
      ArrayList<Shape> shapes = new ArrayList<Shape>();
      shapes.add(square);
      shapes.add(square2);
+     shapes.add(square3);
+     shapes.add(square4);
      return shapes;
   }
   
@@ -67,21 +96,46 @@ class PTree{
     //rotate from the first vertex
     void rotateL(){
        for(int i = 0; i < square.getVertices().size();i++){
-         square.rotateFromPoint(square.vertices.get(0),-.008);
-         square2.rotateFromPoint(square2.vertices.get(0),.008);
+         square.rotateFromPoint(square.vertices.get(0).copy(),rotateAmt);
+         square2.rotateFromPoint(square2.vertices.get(0).copy(),-rotateAmt);
+         square3.rotateFromPoint(square3.vertices.get(0).copy(),-rotateAmt);
+         square4.rotateFromPoint(square4.vertices.get(0).copy(),rotateAmt);
        }
     }
     
     //shrink from the first vertex
     void shrinkL(){
        for(int i = 1; i < square.getVertices().size();i++){
-         square.shrink(square.getVertices().get(0),.0008);
-         square2.shrink(square2.getVertices().get(0),.0008);
+         square.scaler(square.getVertices().get(0).copy(),scaleAmt);
+         square2.scaler(square2.getVertices().get(0).copy(),scaleAmt);
+         square3.scaler(square3.getVertices().get(0).copy(),scaleAmt);
+         square4.scaler(square4.getVertices().get(0).copy(),scaleAmt);
        }
     }
+    
+    void moveUpAndDown(float yAmt){
+      for(int i = 0; i < square.getVertices().size();i++){
+         square.moveUpAndDown(yAmt);
+         square2.moveUpAndDown(yAmt);
+         square3.moveUpAndDown(yAmt);
+         square.moveUpAndDown(yAmt);
+       }
+    }
+    
+    void moveSideToSide(float xAmt){
+      for(int i = 0; i < square.getVertices().size();i++){
+         square.moveSideToSide(xAmt);
+         square2.moveSideToSide(xAmt);
+         square3.moveSideToSide(xAmt);
+         square4.moveSideToSide(xAmt);
+       }
+    }
+ 
   
   void display(){
     square.display();
     square2.display();
+    square3.display();
+    square4.display();
   }
 }
