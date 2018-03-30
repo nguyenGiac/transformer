@@ -6,12 +6,12 @@ class Controller{
   
   Controller(){
     s1 = new ArrayList<PVector>();
-    s1.add(new PVector(width/3,height/3));
-    s1.add(new PVector(width*.66666666,height/3));
-    s1.add(new PVector(width*.66666666,height*.6666666));
-    s1.add(new PVector(width/3,height*.6666666));
+    s1.add(new PVector(width/2-10,height/2-10));
+    s1.add(new PVector(width/2+10,height/2-10));
+    s1.add(new PVector(width/2+10,height/2+10));
+    s1.add(new PVector(width/2-10,height/2+10));
     
-    s2 = new ArrayList<PVector>();
+    /*s2 = new ArrayList<PVector>();
     
     s2.add(new PVector(width*.66666666,height*.6666666));
     s2.add(new PVector(width/3,height*.6666666));
@@ -38,28 +38,28 @@ class Controller{
     s4.add(new PVector(width*.66666666,height*.6666666));
     s4.add(new PVector(width/3,height*.6666666));
     s4.add(new PVector(width/3,height/3));
-    
+    */
     t = new TreeManager(new Shape(s1));
-    t2 = new TreeManager(new Shape(s2));
+    /*t2 = new TreeManager(new Shape(s2));
     t3 = new TreeManager(new Shape(s3));
-    t4 = new TreeManager(new Shape(s4));
+    t4 = new TreeManager(new Shape(s4));*/
     trees = new ArrayList<TreeManager>();
-    trees.add(t);
+    trees.add(t);/*
     trees.add(t2);
     trees.add(t3);
-    trees.add(t4);
+    trees.add(t4);*/
   }
   
-  void run(){
+  void run(int linesOrDots){
     incr++;
     if(checkLoc(trees.get(trees.size()-1))){
-      trees.add(new TreeManager(new Shape(trees.get(trees.size()-1).treeArray.get(0).square.getVertices())));
-      trees.add(new TreeManager(new Shape(trees.get(trees.size()-1).treeArray.get(0).square2.getVertices())));
-      trees.add(new TreeManager(new Shape(trees.get(trees.size()-1).treeArray.get(0).square3.getVertices())));
-      trees.add(new TreeManager(new Shape(trees.get(trees.size()-1).treeArray.get(0).square4.getVertices())));
+      trees.add(new TreeManager(new Shape(trees.get(trees.size()-1).treeArray.get(trees.size()-1).square.getVertices())));
+      trees.add(new TreeManager(new Shape(trees.get(trees.size()-1).treeArray.get(trees.size()-1).square2.getVertices())));
+      trees.add(new TreeManager(new Shape(trees.get(trees.size()-1).treeArray.get(trees.size()-1).square3.getVertices())));
+      trees.add(new TreeManager(new Shape(trees.get(trees.size()-1).treeArray.get(trees.size()-1).square4.getVertices())));
     }
     for(int i = 0; i < trees.size();i++){
-     trees.get(i).live();
+     trees.get(i).live(linesOrDots);
     }
   }
   

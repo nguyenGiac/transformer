@@ -9,11 +9,11 @@
 //but i also split the rotate and scale transformations into two methods so that it is easy for me to 
 //choose from where the shape will rotate
 
-//one of the ways I rotate and scale is with rotateL() and shrinkL()
+//one of the ways I rotate and scale is with rotater() and scaler()
 
 //I learned how to rotate a shape from one of its vertices, I found a description of a formula to do this 
 //in the one of the books on fractals i read this quarter.
-//so the rotateL() method rotates the shape from 
+//so the rotater() method rotates the shape from 
 //the first vertex assigned. to make a shape that rotates on a different corner, we just build it in a different order
 
 //the second way I rotate and scale my shape uses a formula that involve what I saw called "IFS codes".
@@ -25,12 +25,12 @@
 //it produces two more squares that rotate, shrink, then produce two more...
 //i'm getting so close but I have to wrap things and be sure that I explain what I have learned this quarter!
 
-class PTree{
+class Tree{
   Shape square,square2,square3,square4;
   float angle,incr,scaleAmt,rotateAmt;
   ArrayList<PVector> sA;
   
-  PTree(ArrayList<PVector> s,
+  Tree(ArrayList<PVector> s,
         ArrayList<PVector> s2,
         ArrayList<PVector> s3,
         ArrayList<PVector> s4,
@@ -60,12 +60,12 @@ class PTree{
     rotateAmt = rA;
   }
   
-  //i use this to check if we should continue processing this particular PTree
+  //i use this to check if we should continue processing this particular Tree
   //i check the magnitude of the vector resulting from subtracting the top two vertices
   //from each other. i had to use the PVector copy() method or else i would actually
   //move the vector if i simply used '
   boolean isTooSmall(){
-    if(square.vertices.get(0).copy().sub(square.vertices.get(1)).mag() < 1){
+    if(square.vertices.get(0).copy().sub(square.vertices.get(1)).mag() < 5){
        return true; 
     } else {
       return false;
@@ -73,7 +73,7 @@ class PTree{
   }
   
    boolean isTooBig(){
-    if(square.vertices.get(0).copy().sub(square.vertices.get(1)).mag() > width){
+    if(square.vertices.get(0).copy().sub(square.vertices.get(1)).mag() > width/3){
        return true; 
     } else {
       return false;
@@ -93,8 +93,16 @@ class PTree{
       square.rotateAndScale(.001,.001,.9991,.9991);
   }
     
+    void changeScaler(float s){
+      scaleAmt += s;
+    }
+    
+     void changeRotater(float s){
+      rotateAmt += s;
+    }
+    
     //rotate from the first vertex
-    void rotateL(){
+    void rotater(){
        for(int i = 0; i < square.getVertices().size();i++){
          square.rotateFromPoint(square.vertices.get(0).copy(),rotateAmt);
          square2.rotateFromPoint(square2.vertices.get(0).copy(),-rotateAmt);
@@ -103,13 +111,13 @@ class PTree{
        }
     }
     
-    //shrink from the first vertex
-    void shrinkL(){
+    //scale from the first vertex
+    void scaler(){
        for(int i = 1; i < square.getVertices().size();i++){
-         square.scaler(square.getVertices().get(0).copy(),scaleAmt);
-         square2.scaler(square2.getVertices().get(0).copy(),scaleAmt);
-         square3.scaler(square3.getVertices().get(0).copy(),scaleAmt);
-         square4.scaler(square4.getVertices().get(0).copy(),scaleAmt);
+         square.scaler(square.getVertices().get(0).copy(),-scaleAmt);
+         square2.scaler(square2.getVertices().get(0).copy(),-scaleAmt);
+         square3.scaler(square3.getVertices().get(0).copy(),-scaleAmt);
+         square4.scaler(square4.getVertices().get(0).copy(),-scaleAmt);
        }
     }
     
@@ -132,10 +140,10 @@ class PTree{
     }
  
   
-  void display(){
-    square.display();
-    square2.display();
-    square3.display();
-    square4.display();
+  void display(int linesOrDots){
+    square.display(linesOrDots);
+    square2.display(linesOrDots);
+    square3.display(linesOrDots);
+    square4.display(linesOrDots);
   }
 }

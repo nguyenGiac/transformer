@@ -13,7 +13,7 @@
 //the rotateFromPoint() method allows me to rotate from one of the corners-- i use the first vertex that was assigned to the shape for this,
 //so depending on how the shape was built, it will rotate differently. 
 
-//the shrinkL() function does shrink the shape BUT! i'm not exactly sure what is going on. it is the result of my experimenting. i figured that I could 
+//the scaler() function does shrink the shape BUT! i'm not exactly sure what is going on. it is the result of my experimenting. i figured that I could 
 //take two points, subtract one vector from another, then i should have a vector that points from one to the other, i figured that if I then reduced the 
 //magnitude of that vector and reassigned the position of the relevant vector to be the end of this vector which now has a reduced magnitude,
 //that this would scale the entire shape. and it works! but! the scaling doesn't work as expected. when i reduce the magnitude of
@@ -33,35 +33,42 @@ class Shape{
   }
   
   
-  void display(){
-    inc += .001111;
-    inc2 += .0092425;
-    inc3 += .003612;
-    inc4 += .06;
+  void display(int linesOrDots){
+    
+    inc += .011111;
+    inc2 += .012425;
+    inc3 += .0153612;
+    inc4 += .01;
     float size = map(sin(inc4),-1,1,0,10);
     noFill();
     stroke(map(sin(inc),-1,1,0,255),
            map(sin(inc2),-1,1,0,255),
            map(cos(inc3),-1,1,0,255),
            10);
-    /*for(int i = 0; i < vertices.size(); i++){
-      //this draws lines between all the vertices, 
-      //and at the end draws a line back to the first in the list
-       if(i == vertices.size()-1){
-         line(vertices.get(i).x,vertices.get(i).y,vertices.get(0).x,vertices.get(0).y);
-       } else {
-         line(vertices.get(i).x,vertices.get(i).y,vertices.get(i+1).x,vertices.get(i+1).y);
-       }
-    }*/
-    fill(map(sin(inc),-1,1,0,255),
-           map(sin(inc2),-1,1,0,255),
-           map(sin(inc3),-1,1,0,255),
-           10);
-    ellipse(vertices.get(0).x,vertices.get(0).y,size,size);
-    ellipse(vertices.get(1).x,vertices.get(1).y,size,size);
-    ellipse(vertices.get(2).x,vertices.get(2).y,size,size);
-    ellipse(vertices.get(3).x,vertices.get(3).y,size,size);
+    //0 is for lines
+    if(linesOrDots == 0 || linesOrDots == 2){      
+      for(int i = 0; i < vertices.size(); i++){
+        //this draws lines between all the vertices, 
+        //and at the end draws a line back to the first in the list
+         if(i == vertices.size()-1){
+           line(vertices.get(i).x,vertices.get(i).y,vertices.get(0).x,vertices.get(0).y);
+         } else {
+           line(vertices.get(i).x,vertices.get(i).y,vertices.get(i+1).x,vertices.get(i+1).y);
+         }
+      }
+    } 
     
+    //2 is for dots, 3 is for both lines and dots
+    if(linesOrDots == 1 || linesOrDots == 2){
+        fill(map(sin(inc),-1,1,0,255),
+             map(sin(inc2),-1,1,0,255),
+             map(sin(inc3),-1,1,0,255),
+             10);
+        ellipse(vertices.get(0).x,vertices.get(0).y,size,size);
+        ellipse(vertices.get(1).x,vertices.get(1).y,size,size);
+        ellipse(vertices.get(2).x,vertices.get(2).y,size,size);
+        ellipse(vertices.get(3).x,vertices.get(3).y,size,size);
+    }
   }
   
   void rotateAndScale(float p, float q,float r,float s){
