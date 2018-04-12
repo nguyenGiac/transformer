@@ -32,19 +32,30 @@ class Shape{
     }
   }
   
+  PVector getCenter(){
+    PVector one = vertices.get(0).copy();
+    PVector three = vertices.get(2).copy();
+    PVector midPoint = new PVector();
+    midPoint.x = (one.x + three.x)/2;
+    midPoint.y = (one.y + three.y)/2;
+    return midPoint;
+  }
+  
+  float getLength(){
+    PVector l = vertices.get(0).copy().sub(vertices.get(1).copy());
+    float m = l.mag();
+    return m;
+  }
   
   void display(int linesOrDots){
     
-    inc += .011111;
-    inc2 += .012425;
-    inc3 += .0153612;
-    inc4 += .01;
-    float size = map(sin(inc4),-1,1,0,10);
-    noFill();
-    stroke(map(sin(inc),-1,1,0,255),
-           map(sin(inc2),-1,1,0,255),
-           map(cos(inc3),-1,1,0,255),
-           10);
+    inc += .00811111;
+    inc2 += .003;
+    inc3 += .00193612;
+    //inc4 += .01;
+    float size = .5;
+    fill(map(sin(inc),-1,1,0,255),map(sin(inc2),-1,1,0,255),map(sin(inc3),-1,1,0,255),50);
+    stroke(map(sin(inc),-1,1,0,255),map(sin(inc2),-1,1,0,255),map(sin(inc3),-1,1,0,255),50);
     //0 is for lines
     if(linesOrDots == 0 || linesOrDots == 2){      
       for(int i = 0; i < vertices.size(); i++){
@@ -56,14 +67,10 @@ class Shape{
            line(vertices.get(i).x,vertices.get(i).y,vertices.get(i+1).x,vertices.get(i+1).y);
          }
       }
-    } 
+    }
     
-    //2 is for dots, 3 is for both lines and dots
+    //1 is for dots, 2 is for both lines and dots
     if(linesOrDots == 1 || linesOrDots == 2){
-        fill(map(sin(inc),-1,1,0,255),
-             map(sin(inc2),-1,1,0,255),
-             map(sin(inc3),-1,1,0,255),
-             10);
         ellipse(vertices.get(0).x,vertices.get(0).y,size,size);
         ellipse(vertices.get(1).x,vertices.get(1).y,size,size);
         ellipse(vertices.get(2).x,vertices.get(2).y,size,size);
@@ -110,10 +117,11 @@ class Shape{
   }
   
   void rotateFromPoint(PVector p, float theta) {
+    PVector center = getCenter();
     for(int i = 0; i < vertices.size(); i++){
        PVector v = vertices.get(i).copy();
-       vertices.get(i).x = (p.x - v.x)*cos(theta) - (p.y - v.y)*sin(theta)+p.x;
-       vertices.get(i).y = (p.x - v.x)*sin(theta) + (p.y - v.y)*cos(theta)+p.y;
+       vertices.get(i).x = (center.x - v.x)*cos(theta) - (center.y - v.y)*sin(theta)+p.x;
+       vertices.get(i).y = (center.x - v.x)*sin(theta) + (center.y - v.y)*cos(theta)+p.y;
     }
   }
   

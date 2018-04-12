@@ -5,11 +5,12 @@ void setup(){
   fill(0);
   rect(0,0,width,height);
   c = new Controller();
+ 
 }
 
 void draw(){
-  c.run(1);
-  //saveFrame("mandala1/####.jpg");
+   c.run(1);
+  //saveFrame("mandalaGrow4/####.jpg");
 }
 
 void keyPressed() {

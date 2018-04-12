@@ -73,7 +73,7 @@ class Tree{
   }
   
    boolean isTooBig(){
-    if(square.vertices.get(0).copy().sub(square.vertices.get(1)).mag() > width/3){
+    if(square.vertices.get(0).copy().sub(square.vertices.get(1)).mag() > 355){
        return true; 
     } else {
       return false;
@@ -104,10 +104,10 @@ class Tree{
     //rotate from the first vertex
     void rotater(){
        for(int i = 0; i < square.getVertices().size();i++){
-         square.rotateFromPoint(square.vertices.get(0).copy(),rotateAmt);
-         square2.rotateFromPoint(square2.vertices.get(0).copy(),-rotateAmt);
-         square3.rotateFromPoint(square3.vertices.get(0).copy(),-rotateAmt);
-         square4.rotateFromPoint(square4.vertices.get(0).copy(),rotateAmt);
+         square.rotateFromPoint(square.vertices.get(0).copy(),-rotateAmt);
+         square2.rotateFromPoint(square2.vertices.get(0).copy(),rotateAmt);
+         square3.rotateFromPoint(square3.vertices.get(0).copy(),rotateAmt);
+         square4.rotateFromPoint(square4.vertices.get(0).copy(),-rotateAmt);
        }
     }
     

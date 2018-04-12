@@ -18,8 +18,8 @@ class TreeManager{
     treeArray = new ArrayList<Tree>();
     Shape square,square2,square3,square4;
     square = new Shape(s);
-    rotateAmt = 34;
-    scaleAmt = .034;
+    rotateAmt = 333;
+    scaleAmt = .3333;
     square2 = topLeft(new Shape(iS.getVertices()));
     square3 = bottomLeft(new Shape(iS.getVertices()));
     square4 = bottomRight(new Shape(iS.getVertices()));
@@ -74,12 +74,11 @@ class TreeManager{
   void live(int linesOrDots){
     //every ... steps, add 2 new Trees to the list
     count++;
-    rWalk += .1;
-    sWalk += .4;
+    //rWalk += .1;
+    //sWalk += .4;
     //rotateAmt += sin(rWalk);
     //scaleAmt += sin(sWalk);
-    
-   /* if(count % 90 == 0){
+    if(count % 2 == 0){
       ArrayList<PVector> s = new ArrayList<PVector>();
       for(int i = 0;i < treeArray.get(0).square.vertices.size();i++){
         s.add(treeArray.get(treeArray.size()-1).square.getVertices().get(i).copy());
@@ -91,7 +90,7 @@ class TreeManager{
                       bottomRight(new Shape(s)).getVertices(),
                       bottomLeft(new Shape(s)).getVertices(),
                       rotateAmt,scaleAmt));
-                      
+                     
       ArrayList<PVector> s2 = new ArrayList<PVector>();
        for(int i = 0;i < treeArray.get(0).square2.vertices.size();i++){
         s2.add(treeArray.get(treeArray.size()-1).square.getVertices().get(i).copy());
@@ -128,8 +127,8 @@ class TreeManager{
                       bottomLeft(new Shape(s4)).getVertices(),
                       rotateAmt,scaleAmt));
       
+    
     }
-    */
     //go through each Tree instance, make it spin, shrink and display its square
     for(int i = 0;i < treeArray.size();i++){
       if(treeArray.get(i).isTooSmall()){
@@ -141,7 +140,7 @@ class TreeManager{
       }  
       treeArray.get(i).rotater();
       treeArray.get(i).scaler();
-      //treeArray.get(i).changeScaler(.0000051);
+      //treeArray.get(i).changeScaler(-.00000013);
       //treeArray.get(i).changeRotater(.0000041);
       //treeArray.get(i).moveUpAndDown(sin(rWalk)/10);
       //treeArray.get(i).moveSideToSide(cos(rWalk)/10);
